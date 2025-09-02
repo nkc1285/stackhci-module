@@ -60,15 +60,29 @@ variable "data_disk_params" {
 
 variable "linux_ssh_config" {
   type = object({
-    publicKeys = list(object({
+    publicKeys = optional(list(object({
       keyData = string
       path    = string
-    }))
+    })), [])
   })
-  default     = null
-  description = "SSH configuration with public keys for linux."
+  default     = {
+    publicKeys = []
+  }
+  description = "SSH configuration with public keys for linux. Empty if not used."
 }
 
+variable "windows_ssh_config" {
+  type = object({
+    publicKeys = optional(list(object({
+      keyData = string
+      path    = string
+    })), [])
+  })
+  default     = {
+    publicKeys = []
+  }
+  description = "SSH configuration with public keys for windows. Empty if not used."
+}
 variable "memory" {
   type        = number
   default     = 8192
@@ -104,13 +118,4 @@ variable "cpu_count" {
   description = "Number of vCPUs"
 }
 
-variable "windows_ssh_config" {
-  type = object({
-    publicKeys = list(object({
-      keyData = string
-      path    = string
-    }))
-  })
-  default     = null
-  description = "SSH configuration with public keys for windows."
-}
+
