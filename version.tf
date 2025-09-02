@@ -1,9 +1,8 @@
 terraform {
   required_version = ">= 1.3.0"
-  # Remove the experiments line
   required_providers {
     azapi = {
-      source  = "azure/azapi"
+      source  = "Azure/azapi"
       version = "~> 1.0"
     }
     azurerm = {
@@ -15,4 +14,9 @@ terraform {
       version = ">= 3.1.0"
     }
   }
+}
+
+provider "azurerm" {
+  features {}
+  # Optionally, authentication details like client_id, client_secret, etc.
 }
